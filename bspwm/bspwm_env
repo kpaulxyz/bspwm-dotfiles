@@ -1,0 +1,6 @@
+#!/bin/bash
+export MONS="$(xrandr --query | grep " connected")"
+export MON_LIST="$(echo "$MONS" | awk '{print $1}')"
+export MON_COUNT="$(echo "$MON_LIST" | wc -l)"
+export MON_PRIMARY="$(echo "$MONS" | grep primary | awk '{print $1}')"
+export MON_EXT="$(echo "$MONS" | grep -v primary | awk '{print $1}')"

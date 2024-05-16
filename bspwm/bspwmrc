@@ -1,0 +1,65 @@
+#! /bin/sh
+
+pgrep -x sxhkd >/dev/null || sxhkd &
+
+# bspc monitor -d I II III IV V VI VII VIII IX X
+
+# connected_monitors=$(xrandr --query | grep " connected" | awk '{print $1}')
+# # Set primary monitor
+# primary_monitor=$(echo $connected_monitors | awk '{print $1}')
+# bspc monitor $primary_monitor -d I II III IV V VI VII VIII IX X
+#
+# # Set up workspaces on other monitors
+# for monitor in $connected_monitors; do
+#     if [ "$monitor" != "$primary_monitor" ]; then
+#         bspc monitor $monitor -d I II III IV V VI VII VIII IX X
+#     fi
+# done
+#
+# # Set focus to the primary monitor
+# bspc monitor -f $primary_monitor
+# # Subscribe to monitor events to synchronize desktops
+# bspc subscribe monitor | while read -r _ monitor action _; do
+#     case $action in
+#         focus)
+#             # When the focus changes, set the desktop on the other monitor
+#             other_monitor=$(echo $connected_monitors | grep -v $monitor | awk '{print $1}')
+#             bspc monitor $other_monitor -f $(bspc query -M $monitor -D --names)
+#             ;;
+#     esac
+# done
+
+# connected_monitors=$(xrandr --query | grep " connected")
+# connected_list=$($connected_monitors | awk '{print $1}')
+
+# export MON_COUNT=$(xrandr --query | grep " connected" | awk '{print $1}' | wc -l)
+. /home/paul/.config/bspwm/bspwm_env
+for monitor in $MON_LIST; do
+	bspc monitor $monitor -d I II III IV V VI VII VIII IX X
+done
+
+bspc config focused_border_color \#FFD6FF
+# bspc config normal_border_color \#BBD0FF
+bspc config normal_border_color \#000000
+bspc config active_border_color \#000000
+
+bspc config border_width 3
+# bspc config window_gap          12
+bspc config window_gap 0
+
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+# bspc rule -a Gimp desktop='^8' state=floating follow=on
+# bspc rule -a Chromium desktop='^2'
+# bspc rule -a mplayer2 state=floating
+# bspc rule -a Kupfer.py focus=on
+# bspc rule -a Screenkey manage=off
+bspc config -m primary bottom_padding 60
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LG3D
+# alttab -w 1 -d 2
+alttab -w 1 -d 2 -mk Super_L
+/home/paul/Scripts/executer.sh

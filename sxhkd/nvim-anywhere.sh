@@ -20,4 +20,4 @@ FILENAME=/tmp/nvim-anywhere
 #
 # f()
 
-bspc rule -a \* -o state=floating && kitty nvim "$FILENAME" && xclip -sel clip "$FILENAME" && rm "$FILENAME"
+bspc rule -a \* -o state=floating && kitty nvim "$FILENAME" +startinsert && xclip -sel clip "$FILENAME" && rm "$FILENAME"

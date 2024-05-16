@@ -1,0 +1,105 @@
+# Terminal Emulator
+super + t
+	kitty
+
+# Firefox 
+super + f
+	firefox
+
+# Dolphin
+super + e
+	dolphin
+
+# Okular 
+super + r
+	okular
+
+# close a window
+super + d
+	bspc node -c
+
+# kill a window
+super + shift + d 
+	bspc node -k
+
+# make sxhkd reload its configuration files
+super + Escape
+	pkill -USR1 -x sxhkd
+ 
+# quit bspwm
+super + shift + m
+	bspc quit
+
+# restart bspwm
+super + m
+	bspc wm -r
+
+# focus or send a window to the given desktop
+# super + {_,shift + }{1-9,0}
+ 	# bspc {desktop -f,node -d} '^{1-9,10}'
+ 	
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}'
+
+super + {1-9,0}
+	/home/paul/.config/sxhkd/desktop.sh  {1-9,10}
+     
+# # focus or send a window to the given desktop
+# super + {1-9,0}
+#     bspc query -M -m focused -D --names | xargs -I{} bspc desktop -f {}
+# 
+# # Shift key for moving windows between desktops
+# super + shift + {1-9,0}
+#     bspc query -M -m focused -D --names | xargs -I{} bspc node -d {}
+
+
+# fullscreen window
+super + y
+	bspc node -t \~fullscreen
+
+
+# Screenshot
+Print
+	/home/paul/.config/sxhkd/sc.sh
+
+
+
+# Color picker
+super + c 
+	xcolor | xclip -selection clipboard
+ 
+
+# bspwm refresh monitors
+# super + ,
+#	/home/paul/.config/sxhkd/rmon.sh
+
+
+# focus the node in the given direction
+# Now with multi-monitor support. (should work like i3)
+super + {_, shift +, ctrl +}{h,j,k,l}
+    mode={f,s,n}; \
+    direction={west,south,north,east}; \
+    if [ $mode = "f" ]; then \
+        bspc node -f $direction.local || bspc monitor -f $direction; \
+    else; \
+        bspc node -$mode $direction.local || bspc node -m $direction --follow; \
+    fi
+
+
+# Alt tab equivalent
+#super + Tab
+#	bspc node --focus next.local
+#	moved to bspwmrc and alttab
+
+
+# Toggle window floating
+super + x
+	bspc node focused -t \~floating
+
+# Toggle window sticky
+super + shift + x
+	bspc node focused -g \~sticky
+
+
+super + n 
+	/home/paul/.config/sxhkd/nvim-anywhere.sh
